@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Planeje sua viagem com segurança e conforto. Descubra os melhores destinos e pacotes com a M&H Global Travel.">
+    <meta name="keywords" content="viagens, pacotes de viagem, destinos turísticos, M&H Global Travel">
+    <meta name="author" content="M&H Global Travel">
+    <meta name="robots" content="index, follow">
+
+ 
+    
+      <!-- Open Graph Meta Tags -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="M&H Global Travel - Sua melhor experiência de viagem!">
+<meta property="og:description" content="Planeje sua viagem com segurança e conforto. Destinos incríveis esperam por você!">
+<meta property="og:image" content="https://mh-globals.com/imagem/linkimagem.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://mh-globals.com">
+<meta property="fb:app_id" content="2257019784814037"> <!-- opcional -->
+    
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <title>M&H Global Travel</title>
+    
+    <link rel="icon" href="imagem/aviao web.png" type="image/png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Font Awesome (ícones) -->
+   <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+     <!-- NUMBER  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.min.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js"></script>
+
+
+        </head>
+<body>
+    <header id="navbar">
+        <div class="header-background"></div>
+        <div class="header-content">
+            <img src="imagem/M&H globals logo sem slogan.png" alt="Logo M&H Global Travel" class="logo" href="index.html">
+            <div class="container">
+                <nav>
+                    <button class="menu-btn" onclick="toggleMenu()" id="menu-toggle"><span class="menu-icon"></span></button>
+                    <ul>
+                        <li><a href="#"  >Início</a></li>
+                        <li><a href="#about" >Sobre</a></li>
+                        <li><a href="#contact" >Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn"><span class="icon"></span></button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="mudarIdioma('pt')">PT</a>
+                    <a href="#" onclick="mudarIdioma('en')">EN</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <!-- Div Inicio -->
+        <div id="iniciDiv" class="conteudo ativo">
+          <div class="backgroundinicio">
+        <img src="imagem/marbarco.avif" alt="imagemIniDiv">
+        <div class="overlay">
+            <h1>Explore o Mundo com a M&H Global Travel</h1>
+            <p>Descubra destinos incríveis e viva experiências inesquecíveis</p>
+
+           
+
+            <!-- Carrossel de Destinos -->
+            <div class="carrossel">
+                <div class="carrossel-images" id="carousel">
+                    <div class="carrossel-item"><p>África do Sul - Johannesburg (JNB)</p></div>
+                    <div class="carrossel-item"><p>Moçambique - Maputo (MPM)</p></div>
+                    <div class="carrossel-item"><p>Angola - Luanda (LAD)</p></div>
+                    <div class="carrossel-item"><p>Catar - Doha (DOH)</p></div>
+                    <div class="carrossel-item"><p>Reino Unido - Londres Heathrow (LHR)</p></div>
+                    <div class="carrossel-item"><p>Etiópia - Adis Abeba (ADD)</p></div>
+                    <div class="carrossel-item"><p>Brasil - São Paulo Guarulhos (GRU)</p></div>
+                    <div class="carrossel-item"><p>Tanzânia - Dar es Salaam (DAR)</p></div>
+                    <div class="carrossel-item"><p>Portugal - Lisboa (LIS)</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating arrow down -->
+        <a href="#destinations" class="arrow-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </div>
+
+
+            
+            
+        </div>
+
+        <section id="destinations" class="destinations-section">
+    <div class="container">
+        <!-- Título -->
+        <div class="destinations-header">
+            <h2>Destinos Populares</h2>
+            <p>Explore nossos destinos mais procurados e comece a planejar sua próxima aventura</p>
+        </div>
+
+        <!-- Cards de Destinos -->
+        <div class="destinations-grid">
+            <!-- Destino 1 -->
+            <div class="destinations-card">
+                <div class="destinations-card-image">
+                    <img src="imagem/destinos/Capetown.jpg" alt="Cape Town">
+                    <div class="destinations-card-overlay"></div>
+                    <div class="destinations-card-info">
+                        <h3>África do Sul</h3>
+                        <p>Cape Town (CPT)</p>
+                    </div>
+                    <span class="destinations-badge">POPULAR</span>
+                </div>
+                <div class="destinations-card-footer">
+                    <span class="destinations-flight-info"><i class="fas fa-plane"></i> Voos diretos</span>
+                    
+                    <button onclick="scrollToContact()" class="destinations-btn-explore" href="#contact"><i class="fas fa-plus-circle"></i> Explorar</button>
+                </div>
+            </div>
+
+            <!-- Destino 2 -->
+            <div class="destinations-card">
+                <div class="destinations-card-image">
+                    <img src="imagem/destinos/Maputo.avif" alt="Maputo">
+                    <div class="destinations-card-overlay"></div>
+                    <div class="destinations-card-info">
+                        <h3>Moçambique</h3>
+                        <p>Maputo (MPM)</p>
+                    </div>
+                </div>
+                <div class="destinations-card-footer">
+                    <span class="destinations-flight-info"><i class="fas fa-plane"></i> Voos diretos</span>
+                
+                    <button onclick="scrollToContact()" class="destinations-btn-explore"><i class="fas fa-plus-circle"></i> Explorar</button>
+                </div>
+            </div>
+
+            <!-- Destino 3 -->
+            <div class="destinations-card">
+                <div class="destinations-card-image">
+                    <img src="imagem/destinos/dubai.avif" alt="Dubai">
+                    <div class="destinations-card-overlay"></div>
+                    <div class="destinations-card-info">
+                        <h3>Emirados Árabes</h3>
+                        <p>Dubai (DXB)</p>
+                    </div>
+                    <span class="destinations-badge">TOP 2024</span>
+                </div>
+                <div class="destinations-card-footer">
+                    <span class="destinations-flight-info"><i class="fas fa-plane"></i> Voos diretos</span>
+                    
+                    <button onclick="scrollToContact()" class="destinations-btn-explore"><i class="fas fa-plus-circle"></i> Explorar</button>
+                </div>
+            </div>
+
+            <!-- Destino 4 -->
+            <div class="destinations-card">
+                <div class="destinations-card-image">
+                    <img src="imagem/destinos/Lisboa.avif" alt="Lisbon">
+                    <div class="destinations-card-overlay"></div>
+                    <div class="destinations-card-info">
+                        <h3>Portugal</h3>
+                        <p>Lisboa (LIS)</p>
+                    </div>
+                </div>
+                <div class="destinations-card-footer">
+                    <span class="destinations-flight-info"><i class="fas fa-plane"></i> Voos diretos</span>
+                    
+                    <button onclick="scrollToContact()" class="destinations-btn-explore"><i class="fas fa-plus-circle"></i> Explorar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Link para todos os destinos -->
+        <div class="destinations-footer">
+            <a href="#contact">Ver todos os destinos <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </div>
+</section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nossos Serviços</h2>
+                <p>Oferecemos soluções completas para tornar sua viagem perfeita</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card" data-id="desc1">
+                    <div class="icon1"><i class="fas fa-plane"></i></div>
+                    <h3>Passagens Aéreas</h3>
+                    <p>As melhores tarifas em voos nacionais e internacionais.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc2">
+                    <div class="icon1"><i class="fas fa-hotel"></i></div>
+                    <h3>Hospedagem</h3>
+                    <p>Reservas em hotéis, resorts e pousadas com os melhores preços.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc3">
+                    <div class="icon1"><i class="fas fa-passport"></i></div>
+                    <h3>Vistos e Documentos</h3>
+                    <p>Assistência completa para obtenção de vistos e documentos.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc4">
+                    <div class="icon1"><i class="fas fa-car"></i></div>
+                    <h3>Transferes</h3>
+                    <p>Transporte confortável e seguro do aeroporto para seu destino.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc5">
+                    <div class="icon1"><i class="fas fa-umbrella-beach"></i></div>
+                    <h3>Pacotes Turísticos</h3>
+                    <p>Pacotes completos personalizados para todos os tipos de viajantes.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc6">
+                    <div class="icon1"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Seguros de Viagem</h3>
+                    <p>Cobertura completa para garantir sua tranquilidade.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc7">
+                    <div class="icon1"><i class="fas fa-helicopter"></i></div>
+                    <h3>Voos Charter</h3>
+                    <p>Serviço exclusivo de voos privados e fretamentos.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card" data-id="desc8">
+                    <div class="icon1"><i class="fas fa-car-side"></i></div>
+                    <h3>Rent a Car</h3>
+                    <p>Aluguel de veículos nacionais e internacionais.</p>
+                    <a href="#">Saiba mais <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+<!-- Modal (Card Corporativo) - substitui o teu bloco existente -->
+<div id="serviceModal" class="modal" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="close-btn" id="closeModal" aria-label="Fechar modal">×</button>
+    <div class="modal-img" id="modalImg" style="background-image:linear-gradient(135deg,#f0fbff,#d9f3ff)"></div>
+    <div class="modal-text" id="modalText"></div>
+  </div>
+</div>
+
+
+
+
+<!-- Sobre Nós -->
+<section id="about" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            
+            <!-- Carrossel de Imagens -->
+            <div class="lg:w-1/2">
+                <div class="sobre-container">
+                    <div class="sobre-images">
+                        <img src="imagem/Imagem3.jpeg.jpg" alt="Imagem 1" class="sobre-item">
+                        <img src="imagem/Imagem3.jpeg.jpg"alt="Imagem 2" class="sobre-item">
+                        <img src="imagem/Imagem3.jpeg.jpg" alt="Imagem 3" class="sobre-item">
+                        <img src="imagem/Imagem3.jpeg.jpg" alt="Imagem 4" class="sobre-item">
+                        <img src="imagem/Imagem3.jpeg.jpg" alt="Imagem 5" class="sobre-item">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Texto Sobre Nós -->
+            <div class="lg:w-1/2">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-6">Sobre Nós</h2>
+                <p class="text-gray-600 mb-6">A M&H Global Travel é uma agência de viagens moçambicana, localizada na Cidade de Pemba, Rua 25 de Setembro, edifício do Office Center, Loja 7.</p>
+                <p class="text-gray-600 mb-8">Oferecemos soluções completas e personalizadas para todos os tipos de viajantes, garantindo uma jornada segura e confortável desde o planejamento até a decolagem. Nossa equipe de especialistas está pronta para transformar seus sonhos de viagem em realidade.</p>
+                
+                <div class="grid grid-cols-2 gap-6 mb-8">
+                    <div class="flex items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4">
+                            <i class="fas fa-check text-primary"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">Experiência</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4">
+                            <i class="fas fa-check text-primary"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">Segurança</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4">
+                            <i class="fas fa-check text-primary"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">Preços Competitivos</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="bg-primary bg-opacity-10 rounded-full p-3 mr-4">
+                            <i class="fas fa-check text-primary"></i>
+                        </div>
+                        <span class="font-medium text-gray-800">Atendimento Personalizado</span>
+                    </div>
+                </div>
+                
+                <button class="bg-accent hover:bg-opacity-90 text-white px-8 py-3 rounded-lg transition-colors">
+                    <i class="fas fa-phone-alt mr-2"></i> Fale Conosco
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Call to Action -->
+<section class="cta-section">
+    <div class="cta-container">
+        <h2 class="cta-title">Pronto para sua próxima aventura?</h2>
+        <p class="cta-text">Entre em contacto conosco e deixe que criemos a viagem perfeita para você</p>
+        <div class="cta-buttons">
+            <a href="tel:+258855557732" class="cta-phone">
+                <i class="fas fa-phone-alt"></i> +258 85 555 7732
+            </a>
+            <a href="mailto:travel@mh-globals.com" class="cta-email">
+                <i class="fas fa-envelope"></i> travel@mh-globals.com
+            </a>
+        </div>
+    </div>
+</section>
+
+       <!-- Contact Section -->
+<section id="contact" class="contact-section">
+    <div class="contact-container">
+        <div class="contact-flex">
+            <div class="contact-info">
+                <h2>Entre em Contacto</h2>
+                <p>Tem dúvidas ou precisa de um orçamento personalizado? Preencha o formulário ao lado e nossa equipe entrará em contato o mais breve possível.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <h4>Endereço</h4>
+                            <p>Rua do Aeroporto,Cidade de Pemba, Cabo Delgado</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <h4>Telefone</h4>
+                            <p>
+                                <a href="#" class="phone-link" data-number="+258855557732">+258 85 555 7732</a> / 
+                                <a href="#" class="phone-link" data-number="+258843440502">+258 843440502</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:travel@mh-globals.com">travel@mh-globals.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h4>Horário de Funcionamento</h4>
+                            <p>Segunda a Sexta: 8h00 - 17h00</p>
+                            <p>Sábado: 9h00 - 13h00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" required >
+                    </div>
+                    <div class="form-group">
+    <label for="email">Email</label>
+    <div class="form-group email-verify-group">
+    <input type="email" id="email" required >
+    <button type="button" id="confirmEmailBtn"><i class="fas fa-envelope"></i>  Confirmar</button>
+</div>
+
+</div>
+
+<!-- Dialog Box para código de confirmação -->
+<div id="emailConfirmDialog" class="custom-notification-dialog">
+    <div class="custom-notification-content">
+        <span class="custom-notification-close">&times;</span>
+        <h3></h3>
+        <p>:</p>
+        <div id="emailCodeContainer">
+    <input type="text" id="emailCode1" maxlength="1" class="email-code-input" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="emailCode2" maxlength="1" class="email-code-input" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="emailCode3" maxlength="1" class="email-code-input" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="emailCode4" maxlength="1" class="email-code-input" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="emailCode5" maxlength="1" class="email-code-input" inputmode="numeric" pattern="[0-9]*">
+    <input type="text" id="emailCode6" maxlength="1" class="email-code-input" inputmode="numeric" pattern="[0-9]*">
+</div>
+       <div class="dialog-buttons">
+    <button id="validateEmailBtn" ><i class="fas fa-check"></i></button>
+    <button id="resendEmailBtn" disabled><i class="fas fa-envelope"></i></button>
+</div>
+
+        <p id="emailTimer" style="font-size: 0.85rem; color: red; margin-top: 5px;"></p>
+    </div>
+</div>
+
+                  <div class="form-group">
+    <label for="phone">Telefone</label>
+    <div class="phone-group">
+        <select id="countryCode"></select>
+        <input type="tel" id="phone" required placeholder="Número de telefone">
+    </div>
+</div>
+
+
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <select id="subject">
+                         <option>Selecione</option>
+                         <option>Consulta sobre viagem</option>
+                         <option>Solicitação de orçamento</option>
+                         <option>Informações sobre vistos</option>
+                         <option>Reserva de passagens aéreas</option>
+                         <option>Voos charter</option>
+                         <option>Transfers</option>
+                         <option>Reserva de hotéis</option>
+                         <option>Assessoria para passaporte</option>
+                         <option>Pacotes turísticos personalizados</option>
+                         <option>Seguro de viagem</option>
+                         <option>Aluguel de viaturas</option>
+                         <option>Outro</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                      <div class="g-recaptcha" data-sitekey="6LcC2PkrAAAAAJ55908u419z_5eOAj1R6Z7zQZKD"></div>
+                    </div>
+
+                    <button type="submit">
+                        <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+</section>
+<!-- HTML da Notificação -->
+<div class="custom-notification-dialog" id="customNotificationDialog">
+    <div class="custom-notification-content">
+        <span class="custom-notification-close">&times;</span>
+        <div class="custom-notification-icon">
+            <i class="fas" id="customNotificationIcon"></i>
+        </div>
+        <h3 class="custom-notification-title" id="customNotificationTitle"></h3>
+        <p class="custom-notification-message" id="customNotificationMessage"></p>
+        <button class="custom-notification-button" id="customNotificationButton"></button>
+    </div>
+</div>
+
+
+        
+
+    </main>
+
+    <footer>
+    <div class="footer-container">
+        <!-- Seção Info / Logo -->
+        <div class="footer-info">
+            <img src="imagem/LOGO BRANCO COMPLETO.png" alt="M&H Global Travel" class="footer-logo">
+            <p>Transformando sonhos em experiências inesquecíveis desde 2024.</p>
+        </div>
+
+        <!-- Links Rápidos -->
+        <div class="footer-links">
+            <h4>Links Rápidos</h4>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#destinos">Destinos</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#contato">Contacto</a></li>
+            </ul>
+        </div>
+
+        <!-- Serviços -->
+        <div class="footer-services">
+            <h4>Serviços</h4>
+            <ul>
+                <li><a href="#">Passagens Aéreas</a></li>
+                <li><a href="#">Hospedagem</a></li>
+                <li><a href="#">Pacotes Turísticos</a></li>
+                <li><a href="#">Vistos</a></li>
+                <li><a href="#">Seguros</a></li>
+                 <li><a href="#">Voos Charter</a></li>
+                 <li><a href="#">Rent Car</a></li>
+
+            </ul>
+        </div>
+
+        <!-- Contatos -->
+        <div class="footer-contacts">
+            <h4>Contato</h4>
+            <ul>
+                <li><i class="fas fa-map-marker-alt"></i> Pemba, Moçambique</li>
+                <li><i class="fas fa-phone-alt"></i> +258 855557732</li>
+                <li><i class="fas fa-envelope"></i> <a href="mailto:travel@mh-globals.com">travel@mh-globals.com</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer bottom -->
+    <div class="footer-bottom">
+        <p>© 2025 M&H Global Travel. Todos os direitos reservados.</p>
+        <div class="footer-terms">
+            <a href="#">Termos de Serviço</a>
+            <a href="#">Política de Privacidade</a>
+        </div>
+    </div>
+
+    <script src="assets/js/idioma.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/send.js"></script>
+</footer>
+
+
+<!-- Back to Top Button -->
+<a href="#home" id="back-to-top" class="back-to-top">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+<!-- WhatsApp Float Button -->
+<a href="https://wa.me/258855557732" target="_blank" class="whatsapp-float">
+    <i class="fab fa-whatsapp"></i>
+</a>
+ <div id="cookieOverlay" class="cookie-overlay"></div>
+
+<div id="cookieConsent" class="cookie-consent">
+    <h3>Usamos Cookies</h3>
+    <p>Utilizamos cookies para melhorar a sua experiência, personalizar conteúdo e analisar tráfego. Ao continuar navegando, você concorda com nossa política.</p>
+
+    <div class="cookie-buttons">
+        <button id="acceptCookies" class="cookie-accept">Aceitar</button>
+        <button id="declineCookies" class="cookie-decline">Recusar</button>
+    </div>
+</div>
+
+</body>
+</html>

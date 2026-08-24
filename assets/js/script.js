@@ -205,11 +205,11 @@ const serviceData = {
     desc7: { 
         pt: { 
             texto: "Para uma experiência de viagem exclusiva e personalizada, nossos voos charter oferecem flexibilidade e privacidade. Ideal para grupos, eventos corporativos ou viagens de luxo.", 
-            imagem: "./imagem/servicos/Charter flights.avif" 
+            imagem: "./imagem/servicos/charter flights.avif" 
         },
         en: { 
             texto: "For an exclusive and personalized travel experience, our charter flights offer flexibility and privacy. Ideal for groups, corporate events, or luxury travel.", 
-            imagem: "./imagem/servicos/Charter flights.avif" 
+            imagem: "./imagem/servicos/charter flights.avif" 
         }
     },
     desc8: { 

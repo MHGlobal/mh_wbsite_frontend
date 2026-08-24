@@ -648,7 +648,7 @@ phoneInput.addEventListener('paste', (event) => {
 const iti = window.intlTelInput(phoneInput, {
     initialCountry: "auto",
     geoIpLookup: function(callback) {
-        fetch('https://ipinfo.io/json?token=1142c502b46523')
+        fetch('https://ipinfo.io/json')
             .then(res => res.json())
             .then(data => callback(data.country))
             .catch(() => callback('US'));

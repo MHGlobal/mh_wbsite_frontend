@@ -15,7 +15,7 @@ const OTP_ERROR_MAP = {
     invalid_code:       'email_code_wrong',
     code_expired:       'email_code_wrong',
     too_many_attempts:  'email_code_wrong',
-    resend_cooldown:    'email_code_required',
+    resend_cooldown:    'resend_cooldown',
     rate_limited:       'connection_error',
     email_send_failed:  'connection_error',
     service_unavailable:'connection_error'
@@ -62,7 +62,13 @@ function showNotification(notificationKey, isSuccess = true) {
                 title: "Código incorreto",
                 message: "O código inserido não corresponde ao que foi enviado. Verifique e tente novamente.",
                 button: "Entendi"
-            },email_not_confirmed: {
+            },
+            resend_cooldown: {
+                title: "Aguarde antes de reenviar",
+                message: "Aguarde alguns segundos antes de solicitar outro código.",
+                button: "Entendi"
+            },
+            email_not_confirmed: {
         title: "Email não confirmado",
         message: "Por favor, confirme o seu email antes de enviar a mensagem.",
         button: "Ok"
@@ -155,7 +161,13 @@ function showNotification(notificationKey, isSuccess = true) {
             title: "Email confirmed",
             message: "Your email has been successfully verified!",
             button: "Great"
-            },email_not_confirmed: {
+            },
+            resend_cooldown: {
+                title: "Please wait before resending",
+                message: "Please wait a few seconds before requesting another code.",
+                button: "OK"
+            },
+            email_not_confirmed: {
         title: "Email not confirmed",
         message: "Please confirm your email before submitting the form.",
         button: "Ok"
@@ -395,6 +407,13 @@ confirmEmailBtn.addEventListener('click', async () => {
     } catch (err) {
         console.error(err);
         showNotification('connection_error', false);
+    } finally {
+        const currentLang = localStorage.getItem('selectedLanguage') || 'pt';
+        const langPack = (window.translations && window.translations[currentLang])
+            ? window.translations[currentLang]
+            : {};
+        const confirmText = langPack.auth_ConfirmEmailBtn || langPack.confirm || (currentLang === 'en' ? 'Confirm' : 'Confirmar');
+        confirmEmailBtn.innerHTML = `<i class="fas fa-envelope"></i> ${confirmText}`;
     }
 });
 

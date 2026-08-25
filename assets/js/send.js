@@ -28,6 +28,12 @@ const RECAPTCHA_ERROR_MAP = {
     recaptcha_unavailable: 'connection_error'
 };
 
+function resetRecaptchaWidget() {
+    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+        grecaptcha.reset();
+    }
+}
+
 function showNotification(notificationKey, isSuccess = true) {
     // Obter o idioma atual do site (armazenado/HTML/navegador/padrão)
     const currentLang = localStorage.getItem('selectedLanguage') || 
@@ -843,16 +849,17 @@ const translations = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ recaptchaToken })
         });
-        let verifyData = {};
+        let verifyData = null;
         try { verifyData = await verifyResponse.json(); } catch (_) { /* resposta não-JSON */ }
+        const validPayload = verifyData !== null
+            && typeof verifyData === 'object'
+            && !Array.isArray(verifyData);
 
-        if (!verifyResponse.ok || !verifyData.success) {
-            const notificationKey = RECAPTCHA_ERROR_MAP[verifyData.error]
-                || (verifyResponse.status >= 500 ? 'connection_error' : 'recaptcha_invalid');
+        if (!verifyResponse.ok || !validPayload || verifyData.success !== true) {
+            const notificationKey = validPayload && RECAPTCHA_ERROR_MAP[verifyData.error]
+                || (verifyResponse.status === 400 ? 'recaptcha_invalid' : 'connection_error');
             showNotification(notificationKey, false);
-            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-                grecaptcha.reset();
-            }
+            resetRecaptchaWidget();
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
             return;
@@ -892,6 +899,7 @@ fetch(`${API_BASE}/api/contact`, {
 
 }catch (err) {
         console.error(err);
+        resetRecaptchaWidget();
         showNotification('connection_error', false);
     } finally {
         submitBtn.disabled = false;

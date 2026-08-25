@@ -859,51 +859,39 @@ const translations = {
             const notificationKey = validPayload && RECAPTCHA_ERROR_MAP[verifyData.error]
                 || (verifyResponse.status === 400 ? 'recaptcha_invalid' : 'connection_error');
             showNotification(notificationKey, false);
-            resetRecaptchaWidget();
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
             return;
         }
 
+        // Envio AJAX: aguarda o resultado para evitar submissões duplicadas.
+        const contactResponse = await fetch(`${API_BASE}/api/contact`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        let contactData = null;
+        try { contactData = await contactResponse.json(); } catch (_) { /* resposta não-JSON */ }
 
+        const validContactPayload = contactData !== null
+            && typeof contactData === 'object'
+            && !Array.isArray(contactData);
 
-    // Envio AJAX
-
-fetch(`${API_BASE}/api/contact`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
-})
-    .then(response => {
-        if (!response.ok) throw new Error(response.statusText);
-        return response.json();
-    })
-    .then(data => {
-        if (data.success) {
-            showNotification('form_success', true);
-            form.reset();
-        } else {
-            showNotification('form_error', false);
+        if (!contactResponse.ok || !validContactPayload || contactData.success !== true) {
+            showNotification(contactResponse.status >= 500 ? 'connection_error' : 'form_error', false);
+            return;
         }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-        showNotification('connection_error', false);
-    })
-    .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-        confirmEmailBtn.disabled = false;
-        emailInput.disabled = false;
-    });
+
+        showNotification('form_success', true);
+        form.reset();
 
 }catch (err) {
         console.error(err);
-        resetRecaptchaWidget();
         showNotification('connection_error', false);
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
+        confirmEmailBtn.disabled = false;
+        emailInput.disabled = false;
+        resetRecaptchaWidget();
     }
 }
 

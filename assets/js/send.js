@@ -34,6 +34,14 @@ function resetRecaptchaWidget() {
     }
 }
 
+function getEmailConfirmLabel() {
+    const currentLang = localStorage.getItem('selectedLanguage') || 'pt';
+    const langPack = (window.translations && window.translations[currentLang])
+        ? window.translations[currentLang]
+        : {};
+    return langPack.auth_ConfirmEmailBtn || langPack.confirm || (currentLang === 'en' ? 'Confirm' : 'Confirmar');
+}
+
 function showNotification(notificationKey, isSuccess = true) {
     // Obter o idioma atual do site (armazenado/HTML/navegador/padrão)
     const currentLang = localStorage.getItem('selectedLanguage') || 
@@ -262,6 +270,7 @@ function showNotification(notificationKey, isSuccess = true) {
 }
 
 let emailConfirmed = false;
+let confirmedEmailValue = null;
 let resendTimer;
 
 const confirmEmailBtn = document.getElementById('confirmEmailBtn');
@@ -282,6 +291,19 @@ const emailCodeInputs = [
     document.getElementById('emailCode5'),
     document.getElementById('emailCode6')
 ];
+
+// Invalida a confirmação quando o utilizador altera o e-mail confirmado:
+// obriga a repetir o fluxo OTP para o novo endereço.
+emailInput.addEventListener('input', () => {
+    if (!emailConfirmed) return;
+    if (emailInput.value.trim() !== confirmedEmailValue) {
+        emailConfirmed = false;
+        confirmedEmailValue = null;
+        confirmEmailBtn.disabled = false;
+        confirmEmailBtn.style.background = '';
+        confirmEmailBtn.innerHTML = `<i class="fas fa-envelope"></i> ${getEmailConfirmLabel()}`;
+    }
+});
 
 // Função para obter o código completo (combina os 6 dígitos em uma string)
 function getEmailCode() {
@@ -523,6 +545,7 @@ validateEmailBtn.addEventListener('click', async (e) => {
 
         if (response.ok && data.success) {
             emailConfirmed = true;
+            confirmedEmailValue = emailInput.value.trim();
             emailTimer.textContent = T.success;
             emailTimer.classList.add('success');
             showNotification('email_confirmed', true);  // Notificação de sucesso
@@ -842,6 +865,7 @@ const translations = {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
 
 
+     let contactSuccess = false;
      try {
         // 3️⃣ Verifica o reCAPTCHA no backend
         const verifyResponse = await fetch(`${API_BASE}/api/verify-recaptcha`, {
@@ -882,6 +906,7 @@ const translations = {
 
         showNotification('form_success', true);
         form.reset();
+        contactSuccess = true;
 
 }catch (err) {
         console.error(err);
@@ -889,9 +914,17 @@ const translations = {
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
-        confirmEmailBtn.disabled = false;
-        emailInput.disabled = false;
         resetRecaptchaWidget();
+        if (contactSuccess) {
+            // Novo ciclo de envio: libertar o e-mail e pedir nova confirmação OTP.
+            emailInput.disabled = false;
+            emailConfirmed = false;
+            confirmedEmailValue = null;
+            confirmEmailBtn.disabled = false;
+            confirmEmailBtn.style.background = '';
+            confirmEmailBtn.innerHTML = `<i class="fas fa-envelope"></i> ${getEmailConfirmLabel()}`;
+        }
+        // Em caso de falha, manter o e-mail confirmado bloqueado (sem troca sem revalidação).
     }
 }
 

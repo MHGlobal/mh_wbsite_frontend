@@ -838,7 +838,7 @@ const translations = {
     // Validação do assunto
     if (!formData.subject || formData.subject === placeholderText) {
         showNotification('subject_required', false);
-        subjectSelect.focus();
+        form.querySelector('#subject').focus();
         return;
     }
       if (!formData.message || formData.message.length < 10) {

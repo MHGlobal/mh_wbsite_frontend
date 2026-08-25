@@ -3,10 +3,10 @@
 // ============================================================
 // API base — mudar APENAS esta linha para trocar de ambiente:
 //   Local:      http://127.0.0.1:3001
-//   Preview:    https://<nome-do-site>.netlify.app
-//   Produção:   https://api.mh-globals.com
+//   Backend atual: https://mh-globals-api.netlify.app
+//   Produção futura: https://api.mh-globals.com
 // ============================================================
-const API_BASE = 'http://127.0.0.1:3001';
+const API_BASE = 'https://mh-globals-api.netlify.app';
 
 // Códigos de erro devolvidos pelo backend (src/services/otpService.js)
 const OTP_ERROR_MAP = {

@@ -512,15 +512,41 @@ resendEmailBtn.addEventListener('click', async () => {
     startResendCooldown();
 
     try {
-        await fetch(`${API_BASE}/api/send-email-code`, {
+        const response = await fetch(`${API_BASE}/api/send-email-code`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email })
         });
+
+        let data = {};
+        try { data = await response.json(); } catch (_) { /* resposta não-JSON */ }
+
+        if (!response.ok || !data.success) {
+            resetResendCooldown();
+            showNotification(OTP_ERROR_MAP[data.error] || 'connection_error', false);
+        }
     } catch (err) {
         console.error(err);
+        resetResendCooldown();
+        showNotification('connection_error', false);
     }
 });
+
+function resetResendCooldown() {
+    clearInterval(resendTimer);
+    resendTimer = undefined;
+    resendEmailBtn.disabled = false;
+    resendEmailBtn.style.cursor = "pointer";
+    resendEmailBtn.style.background = '#ff9900';
+
+    const currentLang = localStorage.getItem('selectedLanguage') || 'pt';
+    const fallback = { pt: 'Reenviar', en: 'Resend' };
+    const langPack = (window.translations && window.translations[currentLang])
+        ? window.translations[currentLang]
+        : {};
+    const resendText = langPack.auth_ResendShort || langPack.resend || fallback[currentLang] || fallback.pt;
+    resendEmailBtn.innerHTML = `<i class="fas fa-envelope"></i> ${resendText}`;
+}
 
 // Timer de 60 segundos para reenvio
 function startResendCooldown() {

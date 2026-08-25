@@ -21,6 +21,13 @@ const OTP_ERROR_MAP = {
     service_unavailable:'connection_error'
 };
 
+const RECAPTCHA_ERROR_MAP = {
+    missing_token: 'recaptcha_required',
+    recaptcha_failed: 'recaptcha_invalid',
+    service_unavailable: 'recaptcha_unavailable',
+    recaptcha_unavailable: 'connection_error'
+};
+
 function showNotification(notificationKey, isSuccess = true) {
     // Obter o idioma atual do site (armazenado/HTML/navegador/padrão)
     const currentLang = localStorage.getItem('selectedLanguage') || 
@@ -113,6 +120,16 @@ function showNotification(notificationKey, isSuccess = true) {
                 message: "Por favor, complete o reCAPTCHA antes de enviar o formulário.",
                 button: "Entendi"
             },
+            recaptcha_invalid: {
+                title: "Verificação expirada",
+                message: "A verificação do reCAPTCHA expirou ou foi rejeitada. Marque novamente e tente enviar.",
+                button: "Tentar novamente"
+            },
+            recaptcha_unavailable: {
+                title: "Verificação indisponível",
+                message: "A configuração de segurança está temporariamente indisponível. Tente novamente mais tarde.",
+                button: "Entendi"
+            },
             select_placeholder: "Selecione"
         },
         en: {
@@ -190,6 +207,16 @@ function showNotification(notificationKey, isSuccess = true) {
             recaptcha_required: {
                 title: "Verification required",
                 message: "Please complete the reCAPTCHA before submitting the form.",
+                button: "OK"
+            },
+            recaptcha_invalid: {
+                title: "Verification expired",
+                message: "The reCAPTCHA verification expired or was rejected. Check it again and retry.",
+                button: "Try again"
+            },
+            recaptcha_unavailable: {
+                title: "Verification unavailable",
+                message: "The security verification is temporarily unavailable. Please try again later.",
                 button: "OK"
             }
         }
@@ -816,11 +843,16 @@ const translations = {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ recaptchaToken })
         });
-        const verifyData = await verifyResponse.json();
+        let verifyData = {};
+        try { verifyData = await verifyResponse.json(); } catch (_) { /* resposta não-JSON */ }
 
-        if (!verifyData.success) {
-            showNotification('recaptcha_required', false);
-            grecaptcha.reset();
+        if (!verifyResponse.ok || !verifyData.success) {
+            const notificationKey = RECAPTCHA_ERROR_MAP[verifyData.error]
+                || (verifyResponse.status >= 500 ? 'connection_error' : 'recaptcha_invalid');
+            showNotification(notificationKey, false);
+            if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
+                grecaptcha.reset();
+            }
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnText;
             return;

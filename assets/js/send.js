@@ -21,17 +21,30 @@ const OTP_ERROR_MAP = {
     service_unavailable:'connection_error'
 };
 
-const RECAPTCHA_ERROR_MAP = {
-    missing_token: 'recaptcha_required',
-    recaptcha_failed: 'recaptcha_invalid',
-    service_unavailable: 'recaptcha_unavailable',
-    recaptcha_unavailable: 'connection_error'
+// Cloudflare Turnstile — códigos de erro devolvidos pelo backend
+// (src/routes/turnstile.js) mapeados para notificações locais
+const TURNSTILE_ERROR_MAP = {
+    missing_token: 'turnstile_required',
+    turnstile_failed: 'turnstile_invalid',
+    service_unavailable: 'turnstile_unavailable',
+    turnstile_unavailable: 'connection_error'
 };
 
-function resetRecaptchaWidget() {
-    if (typeof grecaptcha !== 'undefined' && typeof grecaptcha.reset === 'function') {
-        grecaptcha.reset();
-    }
+function getTurnstileToken() {
+    try {
+        if (typeof turnstile !== 'undefined' && typeof turnstile.getResponse === 'function') {
+            return turnstile.getResponse() || null;
+        }
+    } catch (_) { /* widget não renderizado (ex.: site key por configurar) */ }
+    return null;
+}
+
+function resetTurnstileWidget() {
+    try {
+        if (typeof turnstile !== 'undefined' && typeof turnstile.reset === 'function') {
+            turnstile.reset();
+        }
+    } catch (_) { /* widget não renderizado */ }
 }
 
 function getEmailConfirmLabel() {
@@ -129,17 +142,17 @@ function showNotification(notificationKey, isSuccess = true) {
                 message: "Falha ao conectar com o servidor.",
                 button: "Tentar mais tarde"
             },
-            recaptcha_required: {
+            turnstile_required: {
                 title: "Verificação necessária",
-                message: "Por favor, complete o reCAPTCHA antes de enviar o formulário.",
+                message: "Por favor, complete a verificação de segurança antes de enviar o formulário.",
                 button: "Entendi"
             },
-            recaptcha_invalid: {
+            turnstile_invalid: {
                 title: "Verificação expirada",
-                message: "A verificação do reCAPTCHA expirou ou foi rejeitada. Marque novamente e tente enviar.",
+                message: "A verificação de segurança expirou ou foi rejeitada. Complete-a novamente e tente enviar.",
                 button: "Tentar novamente"
             },
-            recaptcha_unavailable: {
+            turnstile_unavailable: {
                 title: "Verificação indisponível",
                 message: "A configuração de segurança está temporariamente indisponível. Tente novamente mais tarde.",
                 button: "Entendi"
@@ -218,17 +231,17 @@ function showNotification(notificationKey, isSuccess = true) {
                 message: "Failed to connect with server.",
                 button: "Retry later"
             },
-            recaptcha_required: {
+            turnstile_required: {
                 title: "Verification required",
-                message: "Please complete the reCAPTCHA before submitting the form.",
+                message: "Please complete the security verification before submitting the form.",
                 button: "OK"
             },
-            recaptcha_invalid: {
+            turnstile_invalid: {
                 title: "Verification expired",
-                message: "The reCAPTCHA verification expired or was rejected. Check it again and retry.",
+                message: "The security verification expired or was rejected. Complete it again and retry.",
                 button: "Try again"
             },
-            recaptcha_unavailable: {
+            turnstile_unavailable: {
                 title: "Verification unavailable",
                 message: "The security verification is temporarily unavailable. Please try again later.",
                 button: "OK"
@@ -848,11 +861,12 @@ const translations = {
     }
 
 
-  // Pegar token do reCAPTCHA
-    const recaptchaToken = grecaptcha.getResponse();
-    if (!recaptchaToken) {
-        showNotification('recaptcha_required', false);
-        document.querySelector('.g-recaptcha').scrollIntoView({ behavior: 'smooth' });
+  // Pegar token do Cloudflare Turnstile
+    const turnstileToken = getTurnstileToken();
+    if (!turnstileToken) {
+        showNotification('turnstile_required', false);
+        const turnstileBox = document.querySelector('.cf-turnstile');
+        if (turnstileBox) turnstileBox.scrollIntoView({ behavior: 'smooth' });
         return;
     }
 
@@ -867,11 +881,11 @@ const translations = {
 
      let contactSuccess = false;
      try {
-        // 3️⃣ Verifica o reCAPTCHA no backend
-        const verifyResponse = await fetch(`${API_BASE}/api/verify-recaptcha`, {
+        // 3️⃣ Verifica o Turnstile no backend
+        const verifyResponse = await fetch(`${API_BASE}/api/verify-turnstile`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ recaptchaToken })
+            body: JSON.stringify({ turnstileToken })
         });
         let verifyData = null;
         try { verifyData = await verifyResponse.json(); } catch (_) { /* resposta não-JSON */ }
@@ -880,8 +894,8 @@ const translations = {
             && !Array.isArray(verifyData);
 
         if (!verifyResponse.ok || !validPayload || verifyData.success !== true) {
-            const notificationKey = validPayload && RECAPTCHA_ERROR_MAP[verifyData.error]
-                || (verifyResponse.status === 400 ? 'recaptcha_invalid' : 'connection_error');
+            const notificationKey = validPayload && TURNSTILE_ERROR_MAP[verifyData.error]
+                || (verifyResponse.status === 400 ? 'turnstile_invalid' : 'connection_error');
             showNotification(notificationKey, false);
             return;
         }
@@ -914,7 +928,7 @@ const translations = {
     } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
-        resetRecaptchaWidget();
+        resetTurnstileWidget();
         if (contactSuccess) {
             // Novo ciclo de envio: libertar o e-mail e pedir nova confirmação OTP.
             emailInput.disabled = false;

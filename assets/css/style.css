@@ -1560,8 +1560,8 @@ section:hover {
     text-overflow: ellipsis;
 }
 
-/* ======== reCAPTCHA Responsivo ======== */
-.contact-form .form-group .g-recaptcha {
+/* ======== Cloudflare Turnstile Responsivo ======== */
+.contact-form .form-group .cf-turnstile {
     display: flex;
     justify-content: center;
     align-items: center;
